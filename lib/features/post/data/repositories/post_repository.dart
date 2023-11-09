@@ -15,7 +15,7 @@ class PostsRepositoryImpl implements PostsRepository {
 
   final PostRemoteDataSource remoteDataSource;
   final PostLocalDataSource localDataSource;
-  final NetworkInfo networkInfo;// tester remote or local
+  final NetworkInfo networkInfo;// test remote or local
 
   PostsRepositoryImpl(
       {
@@ -57,6 +57,7 @@ class PostsRepositoryImpl implements PostsRepository {
 
   @override
   Future<Either<Failure, Unit>> deletePost(int postId) async {
+    // Get Message next Time 
     return await _getMessage(() {
       return remoteDataSource.deletePost(postId);
     });
@@ -82,6 +83,7 @@ class PostsRepositoryImpl implements PostsRepository {
     } else {
       return Left(OfflineFailure());
     }
-    
+
   }
+  
 }
