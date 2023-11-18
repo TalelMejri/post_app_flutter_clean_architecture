@@ -37,7 +37,7 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
       case OfflineFailure:
         return OFFLINE_FAILURE_MESSAGE;
       default:
-        return "Erreur inconnue. Veuillez réessayer plus tard";
+        return UKNOWN_FAILURE_MESSAGE;
     }
   }
 
