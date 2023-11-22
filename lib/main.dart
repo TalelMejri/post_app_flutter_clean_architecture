@@ -19,12 +19,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
-      BlocProvider(create: (_)=>di.sl<PostsBloc>()),
-    ], child:  MaterialApp(
+         BlocProvider(create: (_) => di.sl<PostsBloc>()..add(GetAllPostsEvent())),
+    ], 
+    child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Bonjour',
         theme: appTheme,
-        home: PostPage(),
+        home: const PostPage(),
      )
     );
   }

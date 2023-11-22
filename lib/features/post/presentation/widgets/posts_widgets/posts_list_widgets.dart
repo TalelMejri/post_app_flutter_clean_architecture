@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:posts_app/features/posts/presentation/pages/post_detail_page.dart';
-
 import '../../../domain/entities/post.dart';
 
 class PostListWidget extends StatelessWidget {
@@ -26,14 +24,7 @@ class PostListWidget extends StatelessWidget {
             style: const TextStyle(fontSize: 16),
           ),
           contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-          onTap: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (_) => PostDetailPage(post: posts[index]),
-            //   ),
-            // );
-          },
+          onTap: () { },
         );
       },
       separatorBuilder: (context, index) => const Divider(thickness: 1),
