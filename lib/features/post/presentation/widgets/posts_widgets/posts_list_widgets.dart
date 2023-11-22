@@ -13,7 +13,18 @@ class PostListWidget extends StatelessWidget {
     return ListView.separated(
       itemCount: posts.length,
       itemBuilder: (context, index) {
-        return ListTile(
+        return Dismissible(key:Key(posts[index].id.toString()),
+         background:  Container(
+            color: Colors.cyan,
+                                    child:const Icon(Icons.delete,size: 40,color: Colors.white,),
+                                ),
+                              onDismissed: (direction){
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                   SnackBar(content: Text("${posts[index].title} Deleted"))
+                                );
+                              },
+          child: 
+             ListTile(
           leading: Text(posts[index].id.toString()),
           title: Text(
             posts[index].title,
@@ -25,7 +36,9 @@ class PostListWidget extends StatelessWidget {
           ),
           contentPadding: const EdgeInsets.symmetric(horizontal: 10),
           onTap: () { },
-        );
+        )
+       );
+        
       },
       separatorBuilder: (context, index) => const Divider(thickness: 1),
     );
