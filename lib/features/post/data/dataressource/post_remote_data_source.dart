@@ -23,12 +23,14 @@ class PostRemoteDataSourceImpl implements PostRemoteDataSource {
 
   @override
   Future<List<PostModel>> getAllPosts() async {
+  
     final response = await client.get(
       Uri.parse(BASE_URL + "/posts/"),
       headers: {"Content-Type": "application/json"},
     );
-
+    print(response);
     if (response.statusCode == 200) {
+      
       final List data = json.decode(response.body) as List;
       /*
       List<PostModel> postModels=[];
@@ -38,6 +40,7 @@ class PostRemoteDataSourceImpl implements PostRemoteDataSource {
       */
       final List<PostModel> postModels =
         data.map<PostModel>((json) => PostModel.fromJson(json)).toList();
+       
 
       return postModels;
     } else {
