@@ -1,6 +1,3 @@
-import 'package:get_it/get_it.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:post_app/core/network/network_info.dart';
 import 'package:post_app/features/post/data/dataressource/post_local_data_source.dart';
 import 'package:post_app/features/post/data/dataressource/post_remote_data_source.dart';
 import 'package:post_app/features/post/data/repositories/post_repository.dart';
@@ -9,53 +6,53 @@ import 'package:post_app/features/post/domain/usecases/add_post.dart';
 import 'package:post_app/features/post/domain/usecases/delete_post.dart';
 import 'package:post_app/features/post/domain/usecases/get_all_post.dart';
 import 'package:post_app/features/post/domain/usecases/update_post.dart';
+import 'package:post_app/features/post/presentation/bloc/add_update_delete_post/add_update_delete_post_bloc.dart';
 import 'package:post_app/features/post/presentation/bloc/posts/posts_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+import 'core/network/network_info.dart';
+import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+final sl = GetIt.instance;
 
-final sl=GetIt.instance;//Service Locator equivalent @autowired
+Future<void> init() async {
+//! Features - posts
 
-Future<void> init () async{
-  
-  //Features posts
-  //bloc : app reste en attente au démarrage
+// Bloc
 
   sl.registerFactory(() => PostsBloc(getAllPosts: sl()));
-  
-  //UseCases
+  sl.registerFactory(() => AddUpdateDeletePostBloc(
+      addPost: sl(), updatePost: sl(), deletePost: sl()));
+
+// Usecases
 
   sl.registerLazySingleton(() => GetAllPostsUsecase(sl()));
   sl.registerLazySingleton(() => AddPostUsecase(sl()));
   sl.registerLazySingleton(() => DeletePostUsecase(sl()));
   sl.registerLazySingleton(() => UpdatePostUsecase(sl()));
 
-
-
-  //repositories
+// Repository
 
   sl.registerLazySingleton<PostsRepository>(() => PostsRepositoryImpl(
-      remoteDataSource: sl(), localDataSource: sl(), networkInfo: sl())
-  );
+      remoteDataSource: sl(), localDataSource: sl(), networkInfo: sl()));
 
+// Datasources
 
-  //DataSources
+  sl.registerLazySingleton<PostRemoteDataSource>(
+      () => PostRemoteDataSourceImpl(client: sl()));
+  sl.registerLazySingleton<PostLocalDataSource>(
+      () => PostLocalDataSourceImpl(sharedPreferences: sl()));
 
-  sl.registerLazySingleton<PostRemoteDataSource>(() => PostRemoteDataSourceImpl(client: sl()));
-  sl.registerLazySingleton<PostLocalDataSource>(() => PostLocalDataSourceImpl(sharedPreferences: sl()));
-
-
-  //Core
+//! Core
 
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
+//! External
 
-  //External
-
-  final sharedPreferences=await SharedPreferences.getInstance();
-
+  final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton(() => InternetConnectionChecker());
-  
 }

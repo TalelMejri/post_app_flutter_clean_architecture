@@ -4,6 +4,7 @@ import 'package:post_app/core/utils/snack_bar_message.dart';
 import 'package:post_app/core/widgets/loading_widget.dart';
 import 'package:post_app/features/post/presentation/bloc/add_update_delete_post/add_update_delete_post_bloc.dart';
 import 'package:post_app/features/post/presentation/pages/posts_pages.dart';
+import 'package:post_app/features/post/presentation/widgets/post_add_update_widgets/form_widget.dart';
 import '../../domain/entities/post.dart';
 
 class PostAddUpdatePage extends StatelessWidget {
@@ -43,12 +44,11 @@ class PostAddUpdatePage extends StatelessWidget {
               }
             },
             builder: (context, state) {
-             // if (state is LoadingAddUpdateDeletePostState) {
+             if (state is LoadingAddUpdateDeletePostState) {
                 return LoadingWidget();
-             // }
-              
-              // return FormWidget(
-              //     isUpdatePost: isUpdatePost, post: isUpdatePost ? post : null);
+             }
+              return FormWidget(
+                  isUpdatePost: isUpdatePost, post: isUpdatePost ? post : null);
             },
           )),
     );
