@@ -5,7 +5,6 @@ import 'package:post_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:post_app/features/auth/presentation/bloc/auth/auth_state.dart';
 import 'package:post_app/features/auth/presentation/widgets/login_form.dart';
 
-//import 'package:go_router/go_router.dart';
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
   @override
@@ -13,7 +12,7 @@ class LoginPage extends StatelessWidget {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthenticatedState) {
-//naviguer vers liste de post
+        //naviguer vers liste de post
         } else if (state is AuthErrorState) {
           SnackBarMessage()
               .showErrorSnackBar(message: state.message, context: context);

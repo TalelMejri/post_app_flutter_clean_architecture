@@ -25,9 +25,7 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
 
-
 // Bloc
-
   sl.registerFactory(() => PostsBloc(getAllPosts: sl()));
   sl.registerFactory(() => AddUpdateDeletePostBloc(
       addPost: sl(), updatePost: sl(), deletePost: sl()));
