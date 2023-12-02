@@ -18,7 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-//! Features - posts
+
 
 // Bloc
 
@@ -45,11 +45,11 @@ Future<void> init() async {
   sl.registerLazySingleton<PostLocalDataSource>(
       () => PostLocalDataSourceImpl(sharedPreferences: sl()));
 
-//! Core
+//Core
 
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
-//! External
+//External
 
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
