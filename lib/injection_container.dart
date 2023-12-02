@@ -1,3 +1,9 @@
+import 'package:post_app/features/auth/data/datasource/user_local_data_source.dart';
+import 'package:post_app/features/auth/data/datasource/user_remote_data_source.dart';
+import 'package:post_app/features/auth/domain/usecases/get_cached_user.dart';
+import 'package:post_app/features/auth/domain/usecases/sign_in_user.dart';
+import 'package:post_app/features/auth/domain/usecases/sign_out_user.dart';
+import 'package:post_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:post_app/features/post/data/dataressource/post_local_data_source.dart';
 import 'package:post_app/features/post/data/dataressource/post_remote_data_source.dart';
 import 'package:post_app/features/post/data/repositories/post_repository.dart';
@@ -25,6 +31,8 @@ Future<void> init() async {
   sl.registerFactory(() => PostsBloc(getAllPosts: sl()));
   sl.registerFactory(() => AddUpdateDeletePostBloc(
       addPost: sl(), updatePost: sl(), deletePost: sl()));
+  sl.registerLazySingleton(() => AuthBloc(signInUserUseCase: sl(), signOutUserUseCase: sl()));
+
 
 // Usecases
 
@@ -32,6 +40,9 @@ Future<void> init() async {
   sl.registerLazySingleton(() => AddPostUsecase(sl()));
   sl.registerLazySingleton(() => DeletePostUsecase(sl()));
   sl.registerLazySingleton(() => UpdatePostUsecase(sl()));
+  sl.registerLazySingleton(() => SignInUserUseCase(sl()));
+  sl.registerLazySingleton(() => SignOutUserUseCase(sl()));
+  sl.registerLazySingleton(() => GetCachedUserUseCase(sl()));
 
 // Repository
 
@@ -44,6 +55,10 @@ Future<void> init() async {
       () => PostRemoteDataSourceImpl(client: sl()));
   sl.registerLazySingleton<PostLocalDataSource>(
       () => PostLocalDataSourceImpl(sharedPreferences: sl()));
+  sl.registerLazySingleton<UserRemoteDataSource>(() => UserRemoteDataSourceImpl(client: sl()));
+  sl.registerLazySingleton<UserLocalDataSource>(() =>
+                   UserLocalDataSourceImpl(sharedPreferences: sl())
+  );
 
 //Core
 
@@ -55,4 +70,6 @@ Future<void> init() async {
   sl.registerLazySingleton(() => sharedPreferences);
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton(() => InternetConnectionChecker());
+
+  
 }

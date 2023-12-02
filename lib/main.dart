@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:post_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:post_app/features/post/presentation/bloc/add_update_delete_post/add_update_delete_post_bloc.dart';
 import 'package:post_app/features/post/presentation/bloc/posts/posts_bloc.dart';
 import 'package:post_app/features/post/presentation/pages/posts_pages.dart';
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => di.sl<PostsBloc>()..add(GetAllPostsEvent())),
-        BlocProvider(create: (_) => di.sl<AddUpdateDeletePostBloc>())
+        BlocProvider(create: (_) => di.sl<AddUpdateDeletePostBloc>()),
+        BlocProvider(create: (_) => di.sl<AuthBloc>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
