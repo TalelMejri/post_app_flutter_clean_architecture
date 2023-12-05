@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:post_app/core/utils/snack_bar_message.dart';
 import 'package:post_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
-import 'package:post_app/features/auth/presentation/bloc/auth/auth_state.dart';
 import 'package:post_app/features/auth/presentation/widgets/login_form.dart';
 
 class LoginPage extends StatelessWidget {

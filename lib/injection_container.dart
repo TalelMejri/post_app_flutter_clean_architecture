@@ -1,5 +1,7 @@
 import 'package:post_app/features/auth/data/datasource/user_local_data_source.dart';
 import 'package:post_app/features/auth/data/datasource/user_remote_data_source.dart';
+import 'package:post_app/features/auth/data/repositories/user_repo_impl.dart';
+import 'package:post_app/features/auth/domain/repositories/user_repo.dart';
 import 'package:post_app/features/auth/domain/usecases/get_cached_user.dart';
 import 'package:post_app/features/auth/domain/usecases/sign_in_user.dart';
 import 'package:post_app/features/auth/domain/usecases/sign_out_user.dart';
@@ -46,6 +48,9 @@ Future<void> init() async {
 
   sl.registerLazySingleton<PostsRepository>(() => PostsRepositoryImpl(
       remoteDataSource: sl(), localDataSource: sl(), networkInfo: sl()));
+
+  sl.registerLazySingleton<UserRepository>(() => UserRepositoryImpl(
+      userRemoteDataSource: sl(), userLocalDataSource: sl(), networtkInfo: sl()));
 
 // Datasources
 

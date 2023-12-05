@@ -5,9 +5,9 @@ import 'package:post_app/core/strings/failures.dart';
 import 'package:post_app/features/auth/domain/entities/user_enttity.dart';
 import 'package:post_app/features/auth/domain/usecases/sign_in_user.dart';
 import 'package:post_app/features/auth/domain/usecases/sign_out_user.dart';
-import 'package:post_app/features/auth/presentation/bloc/auth/auth_state.dart';
 
 part 'auth_event.dart';
+part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignInUserUseCase signInUserUseCase;

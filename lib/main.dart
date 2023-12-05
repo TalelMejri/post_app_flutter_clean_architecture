@@ -4,8 +4,6 @@ import 'package:post_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:post_app/features/auth/presentation/pages/loginPages.dart';
 import 'package:post_app/features/post/presentation/bloc/add_update_delete_post/add_update_delete_post_bloc.dart';
 import 'package:post_app/features/post/presentation/bloc/posts/posts_bloc.dart';
-import 'package:post_app/features/post/presentation/pages/posts_pages.dart';
-
 import 'core/app_theme.dart';
 
 import 'injection_container.dart' as di;

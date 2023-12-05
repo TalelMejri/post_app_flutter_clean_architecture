@@ -10,31 +10,41 @@ abstract class UserRemoteDataSource {
 }
 
 class UserRemoteDataSourceImpl extends UserRemoteDataSource {
+
   final http.Client client;
   UserRemoteDataSourceImpl({required this.client});
+
   @override
   Future<UserModel> signInUser(UserModel userModel) async {
+    
     final body = jsonEncode(
-        {"username": userModel.username, "password": userModel.password});
+        {"email": userModel.username, "password": userModel.password});
+    print(body);
     late final response;
     try {
-      response = await client.post(Uri.parse(BASE_URL + "/auth/signin/"),
+     
+      response = await client.post(Uri.parse(BASE_URL+"/auth/loginUser"),
           headers: {
             "content-type": "application/json",
             "accept": "application/json",
           },
           body: body);
+         print(response.statusCode);
     } catch (e) {
       print("exception " + e.toString());
     }
+   
     if (response.statusCode == 200) {
       try {
+        print(response.body);
         final user = UserModel.fromJson(jsonDecode(response.body));
         return Future.value(user);
       } catch (e) {
+         print("error"+e.toString());
         return Future.value(null);
       }
     } else {
+       print("error Other");
       throw LoginException();
     }
   }

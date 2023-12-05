@@ -12,10 +12,12 @@ class UserRepositoryImpl extends UserRepository {
   final NetworkInfo networtkInfo;
   final UserLocalDataSource userLocalDataSource;
   final UserRemoteDataSource userRemoteDataSource;
+
   UserRepositoryImpl(
       {required this.networtkInfo,
       required this.userLocalDataSource,
       required this.userRemoteDataSource});
+      
   @override
   Future<Either<Failure, Unit>> signIn(UserEntity user) async {
     final UserModel userModel =

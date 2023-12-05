@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:post_app/features/auth/domain/entities/user_enttity.dart';
 import 'package:post_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
-import 'package:post_app/features/auth/presentation/bloc/auth/auth_state.dart';
 import 'package:post_app/features/auth/presentation/widgets/auth_btn.dart';
 
 class LoginForm extends StatefulWidget {
@@ -94,13 +93,10 @@ child: const Text('Login'),
 
   void validateAndLoginUser() {
     if (_formKey.currentState!.validate()) {
-      print("debut validation");
       final user = UserEntity(
           username: _usernameController.text.trim(),
           password: _pwdController.text.trim());
-      print("debut validation2");
-      BlocProvider.of<AuthBloc>(context).add(LoginEvent(user: user));
-      print("debut validation3");
+          BlocProvider.of<AuthBloc>(context).add(LoginEvent(user: user));
     }
   }
 }
